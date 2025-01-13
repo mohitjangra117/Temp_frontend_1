@@ -108,6 +108,7 @@
           const tbody = document.getElementById("user-table").getElementsByTagName('tbody')[0];
           tbody.innerHTML = '';  // Clear existing rows
 
+          // Loop through each row in the data and create a new row in the table
           data.forEach(row => {
             const tr = document.createElement('tr');
             tr.innerHTML = `<td>${row.name}</td><td>${row.email}</td>`;
