@@ -74,7 +74,7 @@
 
   <script>
     // Replace with your backend URL from Codespaces
-    const backendUrl = "https://ubiquitous-parakeet-vxq7pw7pwqvfx996-3000.app.github.dev/";
+    const backendUrl = "http://localhost:3000";  // Use your actual backend URL here
 
     // Handle form submission
     document.getElementById("user-form").addEventListener("submit", (event) => {
@@ -102,10 +102,17 @@
 
     // Load existing user data from the backend and display it
     function loadUserData() {
-      fetch(backendUrl)
-        .then(response => response.text())
-        .then(html => {
-          document.getElementById("user-table").getElementsByTagName('tbody')[0].innerHTML = html;
+      fetch(`${backendUrl}`)
+        .then(response => response.json())  // Parse response as JSON
+        .then(data => {
+          const tbody = document.getElementById("user-table").getElementsByTagName('tbody')[0];
+          tbody.innerHTML = '';  // Clear existing rows
+
+          data.forEach(row => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `<td>${row.name}</td><td>${row.email}</td>`;
+            tbody.appendChild(tr);
+          });
         })
         .catch(error => console.error('Error fetching data:', error));
     }
